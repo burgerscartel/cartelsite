@@ -2,79 +2,201 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Burgers Cartel</title>
+  <!-- Three.js for 3D logo -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
+    :root {
+      --accent: #f2aa21;
+    }
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0f0f0f;
-      color: #ffd700;
-      text-align: center;
+      margin:0;
+      font-family:'Segoe UI',Tahoma,sans-serif;
+      background:#0f0f0f;
+      color:#fff;
+      line-height:1.4;
     }
-    header {
-      padding: 2rem 1rem;
+    header, footer { text-align:center; }
+    header { padding:2rem 1rem; position:relative; }
+    /* 3D Logo Container */
+    #logo3d { width:150px; height:150px; margin:0 auto; display:block; }
+    h1 { margin:1rem 0; font-size:2.5rem; color:var(--accent); }
+    .buttons a {
+      background:var(--accent);
+      color:#000;
+      padding:.8rem 1.5rem;
+      margin:.5rem;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:600;
+      display:inline-block;
     }
-    .logo {
-      width: 150px;
-      height: auto;
+    main { max-width:900px; margin:2rem auto; padding:0 1rem; }
+    .menu-category { margin-top:2rem; }
+    .menu-category h2 {
+      font-size:1.8rem;
+      border-bottom:2px solid #222;
+      padding-bottom:.5rem;
+      color:var(--accent);
     }
-    h1 {
-      font-size: 2.5rem;
-      margin: 1rem 0 0.5rem;
+    .item {
+      display:flex;
+      justify-content:space-between;
+      padding:.8rem 0;
+      border-bottom:1px solid #222;
+      align-items:flex-start;
     }
-    .buttons {
-      margin-top: 2rem;
+    .item:last-child { border-bottom:none; }
+    .item strong { font-size:1.1rem; }
+    .desc { color:#ccc; font-size:.9rem; margin-top:.2rem; }
+    .add-cart {
+      background:transparent;
+      border:1px solid var(--accent);
+      color:var(--accent);
+      padding:.3rem .6rem;
+      margin-left:1rem;
+      border-radius:4px;
+      cursor:pointer;
     }
-    .button {
-      background-color: #ffd700;
-      color: #000;
-      padding: 1rem 2rem;
-      margin: 0.5rem;
-      border: none;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 8px;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .menu-preview {
-      margin: 3rem auto;
-      max-width: 800px;
-    }
-    .menu-item {
-      background-color: #1e1e1e;
-      margin: 1rem;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-    footer {
-      padding: 2rem;
-      background-color: #111;
-      color: #999;
-    }
+    /* Reviews */
+    #reviews { background:#111; padding:2rem 1rem; margin:2rem 0; }
+    #reviews h2 { color:var(--accent); }
+    .review { margin:1rem 0; color:#ccc; }
+    /* Contact & About */
+    #about, #contact, #custom { margin:2rem 0; padding:1rem; background:#111; border-radius:6px; }
+    #about h2, #contact h2, #custom h2 { color:var(--accent); }
+    #contact p, #about p { margin:.5rem 0; }
+    footer { background:#111; padding:1rem; font-size:.9rem; color:#999; }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="https://via.placeholder.com/150x80.png?text=Burgers+Cartel+Logo" alt="Burgers Cartel Logo" class="logo" />
+    <!-- 3D rotating logo -->
+    <canvas id="logo3d"></canvas>
     <h1>Flavors You Can’t Refuse</h1>
     <div class="buttons">
-      <a href="https://wa.me/923375561898" class="button" target="_blank">Order Now</a>
-      <a href="mailto:burgerscartel@gmail.com" class="button">Reserve Table</a>
+      <a href="https://wa.me/923375561898" target="_blank">Order Now</a>
+      <a href="mailto:burgerscartel@gmail.com">Reserve Table</a>
     </div>
   </header>
 
-  <section class="menu-preview">
-    <h2>Menu Preview</h2>
-    <div class="menu-item">Grill Wraps</div>
-    <div class="menu-item">Loaded Fries</div>
-    <div class="menu-item">Thick Shakes</div>
-    <div class="menu-item">Outlaw Burgers</div>
-  </section>
+  <main>
+    <!-- Grilled Burgers -->
+    <section class="menu-category">
+      <h2>Grilled Burgers</h2>
+      <div class="item">
+        <div>
+          <strong>Sweet Chili Syndicate</strong>
+          <div class="desc">Tender grilled chicken thigh, smooth yet spicy Sweet Chili Sauce, fresh lettuce, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>
+          645 RS
+          <button class="add-cart">Add to Cart</button>
+        </div>
+      </div>
+      <!-- ...repeat for each item (use same pattern) -->
+      <!-- The Fiery Peri Hitman -->
+      <div class="item">
+        <div><strong>The Fiery Peri Hitman</strong>
+          <div class="desc">Juicy grilled chicken thigh, bold & fiery Peri Peri Sauce, fresh lettuce, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>625 RS <button class="add-cart">Add to Cart</button></div>
+      </div>
+      <!-- Malai Boti Supreme -->
+      <div class="item">
+        <div><strong>Malai Boti Supreme</strong>
+          <div class="desc">Creamy & richly spiced grilled chicken thigh, loaded with Garlic Mayo, fresh lettuce, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>625 RS <button class="add-cart">Add to Cart</button></div>
+      </div>
+    </section>
+
+    <!-- Beef Burgers -->
+    <section class="menu-category">
+      <h2>Beef Burgers</h2>
+      <div class="item">
+        <div><strong>Cartel Smash</strong>
+          <div class="desc">Crispy-edged beef patty, melted cheese, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>690 RS <button class="add-cart">Add to Cart</button></div>
+      </div>
+      <div class="item">
+        <div><strong>Oklahoma</strong>
+          <div class="desc">Beef patties, caramelized onions, melted cheese, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>995 RS <button class="add-cart">Add to Cart</button></div>
+      </div>
+      <div class="item">
+        <div><strong>Big Stack</strong>
+          <div class="desc">Double beef patties, melted cheese, all stacked in a buttery Brioche Bun</div>
+        </div>
+        <div>960 RS <button class="add-cart">Add to Cart</button></div>
+      </div>
+    </section>
+
+    <!-- Crispy Burgers, Customization, Wraps, Shakes, etc. -->
+    <!-- (Repeat same HTML structure for each category) -->
+
+    <!-- Customization Section -->
+    <section id="custom">
+      <h2>Cartel Customization</h2>
+      <p>Make A Meal – 330 RS <button class="add-cart">Add</button></p>
+      <p>Lettuce / Jalapeno / Pickle / Onion – 20 RS each <button class="add-cart">Add</button></p>
+      <p>Cheese – 99 RS <button class="add-cart">Add</button></p>
+      <p>Sauce: Garlic Mayo / Fiery Peri / Sweet Chilli – 99 RS <button class="add-cart">Add</button></p>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+      <h2>What People Are Saying</h2>
+      <div class="review">“The Fiery Peri Hitman is life-changing!” – Adeel</div>
+      <div class="review">“Best loaded fries in Islamabad. 🔥” – Sana</div>
+      <div class="review">“Cartel Smash is a pure indulgence.” – Omar</div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about">
+      <h2>About Us</h2>
+      <p>
+        Burgers Cartel started from a small food truck with one mission: to craft outlaw-level burgers that pack a punch.
+        Born in the streets of Islamabad, our secret sauces and bold flavors have built a loyal following.
+        Every bite is an invitation to join the cartel—where quality meets rebellion.
+      </p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact & Hours</h2>
+      <p>📍 Bahria Phase 7, Business Bay, Islamabad</p>
+      <p>📞 +92 337 556 1898</p>
+      <p>⏰ Mon–Sun: 12 PM – 11 PM</p>
+      <p>✉️ burgerscartel@gmail.com</p>
+    </section>
+  </main>
 
   <footer>
-    <p>&copy; 2025 Burgers Cartel. All rights reserved.</p>
+    &copy; 2025 Burgers Cartel — <a href="https://burgerscartel.com" style="color:var(--accent);text-decoration:none;">burgerscartel.com</a>
   </footer>
+
+  <!-- Three.js Script for Rotating Logo -->
+  <script>
+    const scene = new THREE.Scene(),
+          camera = new THREE.PerspectiveCamera(50,1,0.1,1000),
+          renderer = new THREE.WebGLRenderer({canvas: document.getElementById('logo3d'), alpha:true});
+    renderer.setSize(150,150);
+    const geometry = new THREE.SphereGeometry(1,32,32);
+    const texture = new THREE.TextureLoader().load('logo.png');
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    const material = new THREE.MeshBasicMaterial({map:texture});
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+    camera.position.z = 3;
+    function animate(){ requestAnimationFrame(animate); sphere.rotation.y += 0.01; renderer.render(scene, camera); }
+    animate();
+  </script>
+
 </body>
 </html>
